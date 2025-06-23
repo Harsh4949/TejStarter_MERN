@@ -14,46 +14,64 @@ export class AuthService {
             
     }
 
-    async createAccount({email, password, name}) {
+    async sendOtpGmail({ email }) {
         try {
-            const userAccount = await this.account.create(ID.unique(), email, password, name);
-            if (userAccount) {
-                // call another method
-                return this.login({email, password});
-            } else {
-               return  userAccount;
-            }
+            const sessionToken = await this.account.createEmailToken(
+                ID.unique(),
+                email
+            );
+
+            const userId = sessionToken.userId;
+            console.log("OTP sent to email. User ID:", userId);
+            return { message: 'Email verification token sent.', userId };
         } catch (error) {
+            console.log("Appwrite service :: sendOtpGmail :: error", error);
             throw error;
         }
     }
 
-    async login({email, password}) {
+    async verifyGmail({ userId, secret }) {
         try {
-            return await this.account.createEmailSession(email, password);
+            const session = await this.account.createSession(userId, secret);
+            console.log("Session created:", session);
+            return { message: "Login successful", session };
         } catch (error) {
+            console.log("Appwrite service :: verifyGmail :: error", error);
             throw error;
         }
     }
 
-    async getCurrentUser() {
+    async sendOtpSms({ phone }) {
         try {
-            return await this.account.get();
-        } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error);
-        }
+            const token = await this.account.createPhoneToken(
+                ID.unique(),
+                phone // e.g., '+919876543210'
+            );
 
-        return null;
+            const userId = token.userId;
+            console.log("OTP sent via SMS. User ID:", userId);
+
+            return { message: 'SMS verification token sent.', userId };
+            
+        } catch (error) {
+            console.log("Appwrite service :: sendOtpSms :: error", error);
+            throw error;
+        }
     }
 
-    async logout() {
-
+    async verifyPhoneOtp({ userId, secret }) {
         try {
-            await this.account.deleteSessions();
+            const session = await this.account.createSession(userId, secret);
+            console.log("Login successful:", session);
+            return { message: 'Login successful', session };
+
         } catch (error) {
-            console.log("Appwrite serive :: logout :: error", error);
+            console.log("Appwrite service :: verifyPhoneOtp :: error", error);
+            throw error;
         }
     }
+
+
 }
 
 const authService = new AuthService();
