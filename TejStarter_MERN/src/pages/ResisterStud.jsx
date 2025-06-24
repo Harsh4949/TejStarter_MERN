@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import fireAuth from '../firebase/fireConfig'; // Use the default export, not named
-
+import Header from '../components/Header/Header';
+import { Container } from '../components/index';
 export class ResisterStud extends Component {
 
   sendOTPTOnumber = async () => {
@@ -15,10 +16,15 @@ export class ResisterStud extends Component {
 
   render() {
     return (
-      <div>
-        <div id="recaptcha-container"></div> {/* Important: this is required for Firebase */}
-        <button onClick={this.sendOTPTOnumber}>Send OTP to Phone</button>
-      </div>
+
+        <Container>
+
+        <h1>
+          Hii
+        </h1>
+
+        </Container>
+
     );
   }
 }

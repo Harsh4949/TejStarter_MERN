@@ -10,7 +10,6 @@ function App() {
 
       <h1 className=' text-blue-400 '> Tejstarter</h1>
       <ResisterStud/>
-      
     </>
   )
 }
