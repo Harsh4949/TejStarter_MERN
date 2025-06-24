@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Header() {
   
-  const navigate = useNavigate()
+   const navigate = useNavigate()
 
   const navItems = [
           {
@@ -13,50 +13,45 @@ function Header() {
               slug: "/",
           }, 
           {
-              name: "Login",
-              slug: "/login",
+              name: "Launchpad",
+              slug: "/Launchpad",
           },
           {
-              name: "Signup",
-              slug: "/signup",
+              name: "About",
+              slug: "/About",
           },
           {
-              name: "All Posts",
+              name: "Collaboration",
               slug: "/all-posts",
           },
           {
-              name: "Add Post",
-              slug: "/add-post",
+              name: "Stories",
+              slug: "/Stories",
           },
-    ]
+    ] 
 
 
   return (
     <header className='py-3 shadow bg-gray-500'>
       <Container>
         <nav className='flex'>
-          <div className='mr-4'>
-            <Link to='/'>
-              <Logo width='70px'   />
+            <div className='mr-4'>
+              <Link to='/'>
+                <Logo width='70px'   />
 
-              </Link>
-          </div>
+                </Link>
+            </div>
           <ul className='flex ml-auto'>
             {navItems.map((item) => 
-            item.active ? (
+
               <li key={item.name}>
                 <button
-                onClick={() => navigate(item.slug)}
+                 onClick={() => navigate(item.slug)}
                 className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
                 >{item.name}</button>
               </li>
-            ) : null
             )}
-            {authStatus && (
-              <li>
-                <LogoutBtn />
-              </li>
-            )}
+            
           </ul>
         </nav>
         </Container>

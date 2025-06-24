@@ -22,7 +22,7 @@ export class ResisterStud extends Component {
         <h1>
           Hii
         </h1>
-
+        
         </Container>
 
     );
